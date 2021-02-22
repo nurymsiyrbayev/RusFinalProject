@@ -39,7 +39,7 @@
 
     <servlet>
         <servlet-name>club</servlet-name>
-        <servlet-class>servlets.ClubServlet</servlet-class>
+        <servlet-class>servlets.AuthorServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>club</servlet-name>

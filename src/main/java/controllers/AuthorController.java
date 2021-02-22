@@ -1,10 +1,10 @@
 package controllers;
 
-import models.Club;
+import models.Author;
 import models.User;
-import services.ClubServiceImpl;
+import services.AuthorServiceImpl;
 import services.UserServiceImpl;
-import services.interfaces.ClubService;
+import services.interfaces.AuthorService;
 import services.interfaces.UserService;
 
 import javax.ws.rs.*;
@@ -12,17 +12,17 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
 
-@Path("club")
-public class ClubController {
-    private final ClubService clubService = new ClubServiceImpl();
+@Path("author")
+public class AuthorController {
+    private final AuthorService authorService = new AuthorServiceImpl();
     private final UserService userService = new UserServiceImpl();
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    @Path("/remove/{clubId}")
-    public Response removeClub(@PathParam("clubId") long id){
+    @Path("/remove/{authorId}")
+    public Response removeClub(@PathParam("authorId") long id){
         try {
-            clubService.remove(id);
+            authorService.remove(id);
         } catch (ServerErrorException ex) {
             return Response
                     .serverError()
@@ -37,7 +37,7 @@ public class ClubController {
         }
         return Response
                 .status(Response.Status.CREATED)
-                .entity("Club was removed successfully!")
+                .entity("Автор был успешно удален!")
                 .build();
     }
 
@@ -45,9 +45,9 @@ public class ClubController {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/all")
     public Response getClubList() {
-        List<Club> clubList;
+        List<Author> authorList;
         try {
-            clubList = clubService.getClubList();
+            authorList = authorService.getAuthorList();
         } catch (ServerErrorException ex) {
             return Response
                     .serverError()
@@ -60,15 +60,15 @@ public class ClubController {
                     .entity(ex.getMessage())
                     .build();
         }
-        if (clubList == null) {
+        if (authorList == null) {
             return Response
                     .status(Response.Status.NOT_FOUND)
-                    .entity("There are no clubs!")
+                    .entity("Нету ни одного автора!")
                     .build();
         } else {
             return Response
                     .status(Response.Status.OK)
-                    .entity(clubList)
+                    .entity(authorList)
                     .build();
         }
     }
@@ -76,9 +76,9 @@ public class ClubController {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("/update")
-    public Response updateClub(Club club) {
+    public Response updateAuthor(Author author) {
         try {
-            clubService.update(club);
+            authorService.update(author);
         } catch (ServerErrorException ex) {
             return Response
                     .serverError()
@@ -93,44 +93,17 @@ public class ClubController {
         }
         return Response
                 .status(Response.Status.CREATED)
-                .entity("Club was updated successfully!")
-                .build();
-    }
-
-    @POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Path("/update/owner/{clubId}/{ownerEmail}")
-    public Response updateClub(@PathParam("clubId") long clubId, @PathParam("ownerEmail") String newOwnerEmail) {
-        Club club = clubService.select(clubId);
-        User newOwner = userService.getUserByLoginDate(newOwnerEmail);
-        club.setClubOwnerId(newOwner.getId());
-        try {
-            clubService.update(club);
-        } catch (ServerErrorException ex) {
-            return Response
-                    .serverError()
-                    .entity(ex.getMessage())
-                    .build();
-
-        } catch (BadRequestException ex) {
-            return Response
-                    .status(Response.Status.BAD_REQUEST)
-                    .entity(ex.getMessage())
-                    .build();
-        }
-        return Response
-                .status(Response.Status.CREATED)
-                .entity("Club was updated successfully!")
+                .entity("Клуб был успешно обновлен!")
                 .build();
     }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("/{clubId}")
-    public Response getClub(@PathParam("clubId") long id) {
-        Club club;
+    @Path("/{authorId}")
+    public Response getClub(@PathParam("authorId") long id) {
+        Author author;
         try {
-            club = clubService.select(id);
+            author = authorService.select(id);
         } catch (ServerErrorException ex) {
             return Response
                     .serverError()
@@ -139,18 +112,18 @@ public class ClubController {
         } catch (BadRequestException ex) {
             return Response
                     .status(Response.Status.ACCEPTED)
-                    .entity("Event cannot be found!")
+                    .entity("Автор не был найден!")
                     .build();
         }
-        if (club == null) {
+        if (author == null) {
             return Response
                     .status(Response.Status.NOT_FOUND)
-                    .entity("There are no such event!")
+                    .entity("Автор не существует!")
                     .build();
         } else {
             return Response
                     .status(Response.Status.OK)
-                    .entity(club)
+                    .entity(author)
                     .build();
         }
     }
@@ -163,7 +136,7 @@ public class ClubController {
         try {
             user = userService.getUserByLoginDate(email);
             club.setClubOwnerId(user.getId());
-            clubService.insert(club);
+            authorService.insert(club);
         } catch(ServerErrorException ex) {
             return Response
                     .serverError()
@@ -187,7 +160,7 @@ public class ClubController {
     @Path("/join/{userId}/{clubId}")
     public Response joinToClub(@PathParam("userId") long userId,@PathParam("clubId") long clubId) {
         try {
-            clubService.addUserRequestsToJoinTheClub(userId,clubId);
+            authorService.addUserRequestsToJoinTheClub(userId,clubId);
         } catch(ServerErrorException ex) {
             return Response
                     .serverError()
@@ -211,8 +184,8 @@ public class ClubController {
     @Path("/member/add/{clubId}/{memberId}")
     public Response addUserToClub(@PathParam("memberId") long userId,@PathParam("clubId") long clubId) {
         try {
-            clubService.addUserToClub(userId,clubId);
-            clubService.removeUserRequestsToJoinTheClub(userId,clubId);
+            authorService.addUserToClub(userId,clubId);
+            authorService.removeUserRequestsToJoinTheClub(userId,clubId);
         } catch(ServerErrorException ex) {
             return Response
                     .serverError()
@@ -236,7 +209,7 @@ public class ClubController {
     @Path("/member/remove/{clubId}/{memberId}")
     public Response removeMember(@PathParam("memberId") long userId,@PathParam("clubId") long clubId) {
         try {
-            clubService.removeUserFromClub(userId,clubId);
+            authorService.removeUserFromClub(userId,clubId);
         } catch(ServerErrorException ex) {
             return Response
                     .serverError()
@@ -260,7 +233,7 @@ public class ClubController {
     @Path("/joinRequest/remove/{clubId}/{memberId}")
     public Response removeUserRequestsToJoinTheClub(@PathParam("memberId") long userId,@PathParam("clubId") long clubId) {
         try {
-            clubService.removeUserRequestsToJoinTheClub(userId,clubId);
+            authorService.removeUserRequestsToJoinTheClub(userId,clubId);
         } catch(ServerErrorException ex) {
             return Response
                     .serverError()

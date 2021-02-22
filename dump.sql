@@ -1,3 +1,66 @@
+CREATE TABLE "authors" (
+    "author_id" bigserial not null,
+    "author_full_name" text,
+    "author_biography" text,
+    "author_img_url" text,
+    "author_birth_date" date,
+    "author_death_date" date,
+    CONSTRAINT clubs_pkey PRIMARY KEY (author_id)
+);
+
+CREATE TABLE "books" (
+    "book_id" bigserial not null,
+    "book_title" text,
+    "book_description" text,
+    "book_img_url" text,
+    "author_id" bigint,
+    CONSTRAINT clubs_pkey PRIMARY KEY (book_id)
+);
+
+CREATE TABLE "articles" (
+    "article_id" bigserial,
+    "article_title" text,
+    "article_description" text,
+    "article_img_url" text,
+    CONSTRAINT news_pkey PRIMARY KEY (article_id)
+);
+
+CREATE TABLE "users" (
+     "user_id" bigserial,
+     "user_first_name" varchar(255),
+     "user_last_name" varchar(255),
+     "user_email" varchar(255),
+     "user_password" varchar(255),
+     "user_role" smallint,
+     CONSTRAINT users_pkey PRIMARY KEY (user_id)
+);
+
+select author_id, author_full_name, author_biography, author_img_url, author_birth_date, author_death_date FROM authors
+WHERE author_id = ?;
+
+INSERT INTO authors(author_id, author_full_name, author_biography, author_img_url, author_birth_date, author_death_date)
+
+UPDATE authors SET author_full_name = ?, author_biography = ?, author_img_url = ?, author_birth_date = ?, author_death_date = ?
+WHERE author_id = ?;
+
+DELETE from authors where author_id
+
+
+
+
+
+
+
+
+
+
+
+
+
+?????????????????????????????????????????????????????????????????????????????????
+-- don't use !!!!
+
+
 CREATE TABLE "clubs" (
     "club_id" bigserial,
     "club_name" text,
