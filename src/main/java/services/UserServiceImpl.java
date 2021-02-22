@@ -36,33 +36,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> getUserListByMajorId(long majorId) {
-        return userDAO.getUserListByMajorId(majorId);
-    }
-
-    @Override
-    public List<User> getUserListByGroupId(long groupId) {
-        return userDAO.getUserListByGroupId(groupId);
-    }
-
-    @Override
-    public List<User> getUserListByGraduateYear(int graduateYear) {
-        return userDAO.getUserListByGraduateYear(graduateYear);
-    }
-
-    @Override
     public User getUserByLogin(String userEmail, String userPassword) {
         return userDAO.getUserByLogin(userEmail, userPassword);
-    }
-
-    @Override
-    public List<Integer> getGraduateYears() {
-        return userDAO.getGraduateYears();
-    }
-
-    @Override
-    public List<User> searchUserListByEmail(String userEmail, long groupId, long majorId, int graduateYear) {
-        return userDAO.searchUserListByEmail(userEmail, groupId, majorId, graduateYear);
     }
 
     @Override

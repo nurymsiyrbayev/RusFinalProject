@@ -38,29 +38,20 @@
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>club</servlet-name>
+        <servlet-name>author</servlet-name>
         <servlet-class>servlets.AuthorServlet</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>club</servlet-name>
-        <url-pattern>/club</url-pattern>
+        <servlet-name>author</servlet-name>
+        <url-pattern>/author</url-pattern>
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>news</servlet-name>
-        <servlet-class>servlets.NewsServlet</servlet-class>
+        <servlet-name>article</servlet-name>
+        <servlet-class>servlets.ArticleServlet</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>news</servlet-name>
-        <url-pattern>/news</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>event</servlet-name>
-        <servlet-class>servlets.EventServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>event</servlet-name>
-        <url-pattern>/event</url-pattern>
+        <servlet-name>article</servlet-name>
+        <url-pattern>/article</url-pattern>
     </servlet-mapping>
 </web-app>

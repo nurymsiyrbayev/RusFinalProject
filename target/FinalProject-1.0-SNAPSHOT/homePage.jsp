@@ -8,8 +8,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!doctype html>
-<!--[if IE 9]> <html class="no-js ie9 fixed-layout" lang="en"> <![endif]-->
-<!--[if gt IE 9]><!--> <html class="no-js " lang="en"> <!--<![endif]-->
+<!--[if IE 9]> <html class="no-js ie9 fixed-layout" pageEncoding="UTF-8" lang="en"> <![endif]-->
+<!--[if gt IE 9]><!--> <html class="no-js " lang="en"><!--<![endif]-->
+<html lang="ru">
 <head>
 
     <!-- Basic -->
@@ -46,7 +47,7 @@
     <![endif]-->
 
 </head>
-<body>
+<body style="font-family: Tahoma, Arial, Helvetica, sans-serif">
 
 <!-- LOADER -->
 <%--<div id="preloader">--%>

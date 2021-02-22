@@ -6,7 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <c:if test="${empty sessionScope.signedUser}">
     <c:redirect url="loginPage.jsp"/>
 </c:if>
@@ -58,9 +58,9 @@
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="homePage.jsp">Главная страница</a></li>
                     <li><a href="event"></a></li>
-                    <li><a href="club?action=getAll">Личности</a></li>
+                    <li><a href="author?action=getAll">Авторы</a></li>
                     <li><a href="news">Новости</a></li>
-                    <li class="iconitem"><a href="user">Search <i class="fa fa-search"></i></a></li>
+                    <li class="iconitem"><a href="user">Искать <i class="fa fa-search"></i></a></li>
                 </ul>
             </div>
         </nav><!-- end navbar -->

@@ -144,4 +144,25 @@ public class AuthorDAOImpl implements AuthorDAO {
         }
         return null;
     }
+
+    /*
+     *  Instead of duplicating whole creation of userList from result set, better simply create method
+     *  Method, which accepts ResultSet, PreparedStatement and Connection, returns list of users and closing ResultSet, PreparedStatement and Connection
+     */
+    private List<User> getUserListFromResultSet(ResultSet rs, PreparedStatement ps, Connection connection) throws SQLException {
+        List<User> userList = new ArrayList<>();
+        while (rs.next()) {
+            User user = new User(
+                    rs.getLong("user_id"),
+                    rs.getString("user_first_name"),
+                    rs.getString("user_last_name"),
+                    rs.getString("user_email"),
+                    rs.getInt("user_role")
+            );
+            userList.add(user);
+        }
+        rs.close();
+        connection.close();
+        return userList;
+    }
 }
