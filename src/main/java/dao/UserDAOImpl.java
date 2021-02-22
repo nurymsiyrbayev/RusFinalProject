@@ -16,18 +16,14 @@ public class UserDAOImpl implements UserDAO {
         PreparedStatement ps = null;
         try {
             connection = DatabaseConnection.getConnection();
-            String sql = "INSERT INTO users(user_id, user_first_name, user_last_name, user_email, user_password," +
-                    " user_role, group_id, major_id, graduate_year)" +
-                    "VALUES (DEFAULT, ?, ?, ?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO users(user_id, user_first_name, user_last_name, user_email, user_password, user_role)" +
+                    "VALUES (DEFAULT, ?, ?, ?, ?, ?)";
             ps = connection.prepareStatement(sql);
             ps.setString(1, entity.getUserFirstName());
             ps.setString(2, entity.getUserLastName());
             ps.setString(3, entity.getUserEmail());
             ps.setString(4, entity.getUserPassword());
             ps.setInt(5, entity.getUserRole());
-            ps.setLong(6, entity.getGroupId());
-            ps.setLong(7, entity.getMajorId());
-            ps.setInt(8, entity.getGraduateYear());
             if(ps.executeUpdate() > 0) {
                 ps.close();
                 connection.close();
@@ -46,17 +42,14 @@ public class UserDAOImpl implements UserDAO {
         try {
             connection = DatabaseConnection.getConnection();
             String sql = "UPDATE users SET user_first_name = ?, user_last_name = ?, user_email = ?, user_password = ?," +
-                    " user_role = ?, group_id = ?, major_id = ?, graduate_year = ? WHERE user_id = ?";
+                    " user_role = ?  WHERE user_id = ?";
             ps = connection.prepareStatement(sql);
             ps.setString(1, entity.getUserFirstName());
             ps.setString(2, entity.getUserLastName());
             ps.setString(3, entity.getUserEmail());
             ps.setString(4, entity.getUserPassword());
             ps.setInt(5, entity.getUserRole());
-            ps.setLong(6, entity.getGroupId());
-            ps.setLong(7, entity.getMajorId());
-            ps.setInt(8, entity.getGraduateYear());
-            ps.setLong(9, entity.getUserId());
+            ps.setLong(6, entity.getUserId());
             if(ps.executeUpdate() > 0) {
                 ps.close();
                 connection.close();
@@ -95,7 +88,7 @@ public class UserDAOImpl implements UserDAO {
         ResultSet rs = null;
         try {
             connection = DatabaseConnection.getConnection();
-            String sql = "SELECT user_id, user_first_name, user_last_name, user_email, user_role, group_id, major_id, graduate_year FROM users WHERE user_id = ?";
+            String sql = "SELECT user_id, user_first_name, user_last_name, user_email, user_role FROM users WHERE user_id = ?";
             ps = connection.prepareStatement(sql);
             ps.setLong(1, id);
             rs = ps.executeQuery();
@@ -114,66 +107,8 @@ public class UserDAOImpl implements UserDAO {
         ResultSet rs = null;
         try {
             connection = DatabaseConnection.getConnection();
-            String sql = "SELECT user_id, user_first_name, user_last_name, user_email, user_role, group_id," +
-                    " major_id, graduate_year FROM users";
+            String sql = "SELECT user_id, user_first_name, user_last_name, user_email, user_role FROM users";
             ps = connection.prepareStatement(sql);
-            rs = ps.executeQuery();
-            return getUserListFromResultSet(rs, ps, connection);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    @Override
-    public List<User> getUserListByMajorId(long majorId) {
-        Connection connection = null;
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        try {
-            connection = DatabaseConnection.getConnection();
-            String sql = "SELECT user_id, user_first_name, user_last_name, user_email, user_role, group_id," +
-                    " major_id, graduate_year FROM users WHERE major_id = ?";
-            ps = connection.prepareStatement(sql);
-            ps.setLong(1, majorId);
-            rs = ps.executeQuery();
-            return getUserListFromResultSet(rs, ps, connection);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    @Override
-    public List<User> getUserListByGroupId(long groupId) {
-        Connection connection = null;
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        try {
-            connection = DatabaseConnection.getConnection();
-            String sql = "SELECT user_id, user_first_name, user_last_name, user_email, user_role, group_id," +
-                    " major_id, graduate_year FROM users WHERE group_id = ?";
-            ps = connection.prepareStatement(sql);
-            ps.setLong(1, groupId);
-            rs = ps.executeQuery();
-            return getUserListFromResultSet(rs, ps, connection);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    @Override
-    public List<User> getUserListByGraduateYear(int graduateYear) {
-        Connection connection = null;
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        try {
-            connection = DatabaseConnection.getConnection();
-            String sql = "SELECT user_id, user_first_name, user_last_name, user_email, user_role, group_id," +
-                    " major_id, graduate_year FROM users WHERE graduate_year = ?";
-            ps = connection.prepareStatement(sql);
-            ps.setInt(1, graduateYear);
             rs = ps.executeQuery();
             return getUserListFromResultSet(rs, ps, connection);
         } catch (SQLException e) {
@@ -189,8 +124,8 @@ public class UserDAOImpl implements UserDAO {
         ResultSet rs = null;
         try {
             connection = DatabaseConnection.getConnection();
-            String sql = "SELECT user_id, user_first_name, user_last_name, user_email, user_role, group_id," +
-                    " major_id, graduate_year FROM users WHERE user_email = ? and user_password = ?";
+            String sql = "SELECT user_id, user_first_name, user_last_name, user_email, user_role " +
+                    "FROM users WHERE user_email = ? and user_password = ?";
             ps = connection.prepareStatement(sql);
             ps.setString(1, userEmail);
             ps.setString(2, userPassword);
@@ -210,84 +145,13 @@ public class UserDAOImpl implements UserDAO {
         ResultSet rs = null;
         try {
             connection = DatabaseConnection.getConnection();
-            String sql = "SELECT user_id, user_first_name, user_last_name, user_email, user_role, group_id," +
-                    " major_id, graduate_year FROM users WHERE user_email = ? ";
+            String sql = "SELECT user_id, user_first_name, user_last_name, user_email, user_role " +
+                    "FROM users WHERE user_email = ? ";
             ps = connection.prepareStatement(sql);
             ps.setString(1, userEmail);
             rs = ps.executeQuery();
             User user = getUserFromResultSet(rs, ps, connection);
             if (user != null) return user;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    @Override
-    public List<Integer> getGraduateYears() {
-        Connection connection = null;
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        try {
-            connection = DatabaseConnection.getConnection();
-            String sql = "SELECT DISTINCT graduate_year FROM users";
-            ps = connection.prepareStatement(sql);
-            List<Integer> graduateYears = new ArrayList<>();
-            rs = ps.executeQuery();
-            while(rs.next()) {
-                graduateYears.add(rs.getInt("graduate_year"));
-            }
-            rs.close();
-            ps.close();
-            connection.close();
-            return graduateYears;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    @Override
-    public List<User> searchUserListByEmail(String userEmail, long groupId, long majorId, int graduateYear) {
-        Connection connection = null;
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        try {
-            connection = DatabaseConnection.getConnection();
-            String sql = "SELECT user_id, user_first_name, user_last_name, user_role, user_email, group_id, major_id, graduate_year FROM users " +
-                    "WHERE user_email LIKE '%" + userEmail + "%' ";
-            if (groupId != 0) {
-                sql += "AND group_id = ? ";
-            }
-
-            if (majorId != 0) {
-                sql += "AND major_id = ? ";
-            }
-
-            if (graduateYear != 0) {
-                sql += "AND graduate_year = ?";
-            }
-
-            ps = connection.prepareStatement(sql);
-            int i = 1;
-
-            if (groupId != 0) {
-                ps.setLong(i, groupId);
-                ++i;
-            }
-
-            if (majorId != 0) {
-                ps.setLong(i, majorId);
-                ++i;
-            }
-
-            if (graduateYear != 0) {
-                ps.setInt(i, graduateYear);
-            }
-
-            rs = ps.executeQuery();
-
-            return getUserListFromResultSet(rs, ps, connection);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -305,10 +169,7 @@ public class UserDAOImpl implements UserDAO {
                     rs.getString("user_first_name"),
                     rs.getString("user_last_name"),
                     rs.getString("user_email"),
-                    rs.getInt("user_role"),
-                    rs.getLong("group_id"),
-                    rs.getLong("major_id"),
-                    rs.getInt("graduate_year")
+                    rs.getInt("user_role")
             );
             rs.close();
             ps.close();
@@ -330,10 +191,7 @@ public class UserDAOImpl implements UserDAO {
                     rs.getString("user_first_name"),
                     rs.getString("user_last_name"),
                     rs.getString("user_email"),
-                    rs.getInt("user_role"),
-                    rs.getLong("group_id"),
-                    rs.getLong("major_id"),
-                    rs.getInt("graduate_year")
+                    rs.getInt("user_role")
             );
             userList.add(user);
         }

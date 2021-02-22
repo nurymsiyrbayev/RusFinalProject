@@ -7,46 +7,31 @@ public class User extends GenericModel {
     private String userEmail;
     private String userPassword;
     private int userRole;
-    private long groupId;
-    private long majorId;
-    private int graduateYear;
 
     public User() {}
 
-    public User(String userFirstName, String userLastName, String userEmail,
-                int userRole, long groupId, long majorId, int graduateYear) {
+    public User(String userFirstName, String userLastName, String userEmail, int userRole) {
         setUserFirstName(userFirstName);
         setUserLastName(userLastName);
         setUserEmail(userEmail);
         setUserRole(userRole);
-        setGroupId(groupId);
-        setMajorId(majorId);
-        setGraduateYear(graduateYear);
     }
 
-    public User(long userId, String userFirstName, String userLastName, String userEmail,
-                int userRole, long groupId, long majorId, int graduateYear) {
+    public User(long userId, String userFirstName, String userLastName, String userEmail, int userRole) {
         setUserId(userId);
         setUserFirstName(userFirstName);
         setUserLastName(userLastName);
         setUserEmail(userEmail);
         setUserRole(userRole);
-        setGroupId(groupId);
-        setMajorId(majorId);
-        setGraduateYear(graduateYear);
     }
 
-    public User(long userId, String userFirstName, String userLastName, String userEmail,
-                String userPassword, int userRole, long groupId, long majorId, int graduateYear) {
+    public User(long userId, String userFirstName, String userLastName, String userEmail, String userPassword, int userRole) {
         setUserId(userId);
         setUserFirstName(userFirstName);
         setUserLastName(userLastName);
         setUserEmail(userEmail);
         setUserPassword(userPassword);
         setUserRole(userRole);
-        setGroupId(groupId);
-        setMajorId(majorId);
-        setGraduateYear(graduateYear);
     }
 
     public long getUserId() {
@@ -97,29 +82,6 @@ public class User extends GenericModel {
         this.userRole = userRole;
     }
 
-    public long getGroupId() {
-        return groupId;
-    }
-
-    public void setGroupId(long groupId) {
-        this.groupId = groupId;
-    }
-
-    public long getMajorId() {
-        return majorId;
-    }
-
-    public void setMajorId(long majorId) {
-        this.majorId = majorId;
-    }
-
-    public int getGraduateYear() {
-        return graduateYear;
-    }
-
-    public void setGraduateYear(int graduateYear) {
-        this.graduateYear = graduateYear;
-    }
 
     @Override
     public String toString() {
@@ -129,9 +91,6 @@ public class User extends GenericModel {
                 ", userEmail='" + userEmail + '\'' +
                 ", userPassword='" + userPassword + '\'' +
                 ", userRole=" + userRole +
-                ", groupId=" + groupId +
-                ", majorId=" + majorId +
-                ", graduateYear=" + graduateYear +
                 '}';
     }
 }

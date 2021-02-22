@@ -100,47 +100,13 @@ public class UserController {
         } catch (BadRequestException ex) {
             return Response
                     .status(Response.Status.ACCEPTED)
-                    .entity("Users cannot be found!")
+                    .entity("Пользователи не найдены!")
                     .build();
         }
         if (userList == null) {
             return Response
                     .status(Response.Status.NOT_FOUND)
-                    .entity("There are no users!")
-                    .build();
-        } else {
-            return Response
-                    .status(Response.Status.OK)
-                    .entity(userList)
-                    .build();
-        }
-    }
-
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    @Path("/search")
-    public Response searchUserList(@QueryParam("userEmail") String userEmail,
-                                   @QueryParam("groupId") long groupId,
-                                   @QueryParam("majorId") long majorId,
-                                   @QueryParam("graduateYear") int graduateYear) {
-        List<User> userList;
-        try {
-            userList = userService.searchUserListByEmail(userEmail, groupId, majorId, graduateYear);
-        } catch (ServerErrorException ex) {
-            return Response
-                    .serverError()
-                    .entity(ex.getMessage())
-                    .build();
-        } catch (BadRequestException ex) {
-            return Response
-                    .status(Response.Status.ACCEPTED)
-                    .entity("Users cannot be found!")
-                    .build();
-        }
-        if (userList == null) {
-            return Response
-                    .status(Response.Status.NOT_FOUND)
-                    .entity("There are no users!")
+                    .entity("Нету ни одного Пользователя!")
                     .build();
         } else {
             return Response
