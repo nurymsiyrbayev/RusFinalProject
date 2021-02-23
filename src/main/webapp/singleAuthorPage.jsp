@@ -21,7 +21,7 @@
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
     <!-- Site Meta -->
-    <title>Single Club Page</title>
+    <title>Single Author Page</title>
     <meta name="keywords" content="">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -83,13 +83,13 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="tagline-message page-title">
-                        <h3>Single Club</h3>
+                        <h3>Автор</h3>
                     </div>
                 </div><!-- end col -->
                 <div class="col-md-6 text-right">
                     <ul class="breadcrumb">
                         <li><a href="homePage.jsp">Judle</a></li>
-                        <li class="active">Single Club</li>
+                        <li class="active">Автор</li>
                     </ul>
                 </div>
             </div><!-- end row -->
@@ -104,7 +104,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="image-wrap entry">
-                                    <img src="<c:out value="${requestScope.club.clubImgUrl}"/>" alt="" class="img-responsive clubImg">
+                                    <img src="<c:out value="${requestScope.author.authorImgUrl}"/>" alt="" class="img-responsive authorImg">
                                 </div><!-- end image-wrap -->
                             </div>
                         </div><!-- end row -->
@@ -115,33 +115,28 @@
 
                     <div class="col-md-6">
                         <div class="shop-desc">
-                            <h3 class="clubName"><c:out value="${requestScope.club.clubName}"/></h3>
-                            <small>Club</small>
+                            <h3 class="authorName"><c:out value="${requestScope.author.authorName}"/></h3>
+                            <small>Author</small>
                             <br>
                             <div>
-                                <form method="post">
-                                    <input type="hidden" class="clubId" name="clubId" value="${requestScope.club.id}">
-                                    <input type="hidden" class="userId"  value="${sessionScope.signedUser.id}">
-                                    <input class="joinBtn" type="submit" value="Join">
-                                </form>
+<%--                                <form method="post">--%>
+<%--                                    <input type="hidden" class="authorId" name="authorId" value="${requestScope.auhtor.id}">--%>
+<%--                                    <input type="hidden" class="userId"  value="${sessionScope.signedUser.id}">--%>
+<%--                                    <input class="joinBtn" type="submit" value="Join">--%>
+<%--                                </form>--%>
                                 <br><br>
                                 <ul class="list-inline">
                                     <li> Astana IT University</li>
-                                    <li>Categories: <a href="#">Club</a>
+                                    <form method="get" action="author">
+                                        <input type="hidden" name="action" value="getAll">
+                                        <%--                                                    <input type="hidden" class="authorId" name="authorId" value="${author.id}">--%>
+                                        <input type="hidden" class="authorId" name="authorId" value="${author.authorId}">
+                                        <%--                                                    <a class="nav-link" href="#" onclick="this.parentNode.submit()"><c:out value="${author.authorName}"/></a>--%>
+                                        <li>Categories: <a class="nav-link" href="#" onclick="this.parentNode.submit()">Автор</a>
+                                    </form>
+
                                 </ul>
                             </div>
-                            <c:if test="${sessionScope.signedUser.id == requestScope.owner.id}">
-                                <div class="shop-meta">
-                                    <form method="post">
-                                        <input type="hidden" class="clubId" name="clubId" value="${requestScope.club.id}">
-                                        <h1>Give owner status</h1>
-                                        <input type="text" class="updateOwnerEmail" name="clubOwner" placeholder="Enter email">
-                                        <br> <br>
-                                        <input class="updateOwner" name="updateOwner" type="submit" value="Give">
-                                        <br> <br>
-                                    </form>
-                                </div>
-                            </c:if>
                             <!-- end shop meta -->
                         </div><!-- end desc -->
                     </div><!-- end col -->
@@ -153,86 +148,43 @@
                     <div class="col-md-12">
                         <div class="shop-extra">
                             <ul class="nav nav-tabs">
-                                <li class="active"><a data-toggle="tab" href="#description">Description</a></li>
-                                <li><a data-toggle="tab" href="#members">Member(s)</a></li>
-                                <li><a data-toggle="tab" href="#menu2">Reviews</a></li>
-                                <c:if test="${sessionScope.signedUser.id == requestScope.owner.id}">
-                                    <li><a data-toggle="tab" href="#requestToJoin">Request(s)</a></li>
-                                </c:if>
+                                <li class="active"><a data-toggle="tab" href="#description">Биография</a></li>
+                                <li><a data-toggle="tab" href="#menu2">Отзыв</a></li>
+<%--                                <li><a data-toggle="tab" href="#requestToJoin">Request(s)</a></li>--%>
                             </ul>
 
                             <div class="tab-content">
                                 <div id="description" class="tab-pane fade in active">
-                                    <c:if test="${sessionScope.signedUser.id == requestScope.owner.id}">
+                                    <c:if test="${sessionScope.signedUser.id == 2}">
                                         <form method="post">
-                                            <input type="hidden" class="clubId" name="clubId" value="${requestScope.club.id}">
-                                            <input type="hidden" class="ownerId" value="${requestScope.club.clubOwnerId}">
-                                            Name:
+                                            <input type="hidden" class="authorId" name="authorId" value="${requestScope.author.id}">
+                                            <input type="hidden" class="ownerId" value="${requestScope.author.authorId}">
+                                            Полгон имя ФИО:
                                             <br>
-                                            <input type="text" class="updateName" name="clubName" value="<c:out value="${requestScope.club.clubName}"/>">
+                                            <input type="text" class="updateName" name="authorName" value="<c:out value="${requestScope.author.authorName}"/>">
                                             <br>
                                             Img Url:
                                             <br>
-                                            <textarea class="updateImgUrl" name="updateImgUrl" cols="20" rows="5"><c:out value="${requestScope.club.clubImgUrl}"/></textarea>
+                                            <textarea class="updateImgUrl" name="updateImgUrl" cols="20" rows="5"><c:out value="${requestScope.author.authorImgUrl}"/></textarea>
                                             <br>
-                                            Description:
+                                            Биография:
                                             <br>
-                                            <textarea class="updateDescription" name="clubDescription" id="" cols="60" rows="10"><c:out value="${requestScope.club.clubDescription}"/></textarea>
+                                            <textarea class="updateBiography" name="authorBiography" id="" cols="60" rows="10"><c:out value="${requestScope.author.authorBiography}"/></textarea>
                                             <br>
-                                            <input class="clubUpdate" type="submit" value="Update">
+                                            <input class="authorUpdate" type="submit" value="Обнавить">
                                         </form>
                                     </c:if>
-                                    <c:if test="${sessionScope.signedUser.id != requestScope.owner.id}">
-                                        <p><c:out value="${requestScope.club.clubDescription}"/></p>
+                                    <c:if test="${sessionScope.signedUser.id != 2}">
+                                        <p><c:out value="${requestScope.author.authorBiography}"/></p>
                                     </c:if>
                                 </div>
-                                <div id="members" class="tab-pane fade">
-                                    <h3>Member(s) information</h3>
-                                    <table class="table">
-                                        <thead>
-                                        <tr>
-                                            <td><strong>First Name</strong></td>
-                                            <td><strong>Last Name</strong></td>
-                                            <td>Email</td>
-                                            <td>Graduate Year</td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <td><strong><c:out value="${requestScope.owner.userFirstName}"/> </strong></td>
-                                            <td><strong><c:out value="${requestScope.owner.userLastName}"/></strong></td>
-                                            <td><c:out value="${requestScope.owner.userEmail}"/></td>
-                                            <td><c:out value="${requestScope.owner.graduateYear}"/></td>
-                                            <td>owner of this club</td>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <c:forEach var="member" items="${requestScope.members}">
-                                            <c:if test="${member.id != requestScope.owner.id}">
-                                                <form method="post">
-                                                    <tr class="memberRow">
-                                                        <input type="hidden" class="memberId" name="userId" value="${member.id}">
-                                                        <input type="hidden" class="clubId" name="clubId" value="${requestScope.club.id}">
-                                                        <td><strong><c:out value="${member.userFirstName}"/></strong></td>
-                                                        <td><strong><c:out value="${member.userLastName}"/></strong></td>
-                                                        <td><c:out value="${member.userLastName}"/></td>
-                                                        <td><c:out value="${member.graduateYear}"/></td>
-                                                        <c:if test="${sessionScope.signedUser.id == requestScope.owner.id}">
-                                                            <td><input type="submit" class="removeMember" value="Remove"></td>
-                                                        </c:if>
-                                                    </tr>
-                                                </form>
-                                            </c:if>
-                                        </c:forEach>
-                                        </tbody>
-                                    </table>
-                                </div>
                                 <div id="menu2" class="tab-pane fade">
-                                    <h3>Reviews</h3>
+                                    <h3>Отзыв</h3>
 
-                                    <p>Your email address will not be published. Required fields are marked *</p>
+                                    <p>Ваша электронная почта не будет разглашена. Обязательные поля помечены *</p>
 
                                     <div class="rating">
-                                        <p>Your Rating</p>
+                                        <p>Ваша оценка</p>
                                         <i class="fa fa-star"></i>
                                         <i class="fa fa-star"></i>
                                         <i class="fa fa-star"></i>
@@ -244,61 +196,61 @@
 
                                     <form class="big-contact-form row" role="search">
                                         <div class="col-md-12">
-                                            <textarea class="form-control" placeholder="Your reviews.."></textarea>
+                                            <textarea class="form-control" placeholder="Ваш отзыв .."></textarea>
                                         </div>
                                         <div class="col-md-6">
-                                            <input type="text" class="form-control" placeholder="Enter your name..">
+                                            <input type="text" class="form-control" placeholder="Введите ваше имя..">
                                         </div>
                                         <div class="col-md-6">
-                                            <input type="email" class="form-control" placeholder="Enter email..">
+                                            <input type="email" class="form-control" placeholder="Введите адрес электронной почты..">
                                         </div>
                                         <div class="col-md-12">
-                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                            <button type="submit" class="btn btn-primary" value="Отправить">Отправить</button>
                                         </div>
                                     </form>
                                 </div>
-                                <c:if test="${sessionScope.signedUser.id == requestScope.owner.id}">
-                                    <div id="requestToJoin" class="tab-pane fade">
-                                        <h3>Request(s)</h3>
-                                        <table class="table">
-                                            <thead>
-                                            <tr>
-                                                <td><strong>First Name</strong></td>
-                                                <td><strong>Last Name</strong></td>
-                                                <td>Email</td>
-                                                <td>Graduate Year</td>
-                                                <td>———</td>
-                                                <td>———</td>
-                                            </tr>
-                                            </thead>
-                                            <tbody class="requestsTable">
-                                            <c:forEach var="item" items="${requestScope.userJoinRequests}">
-                                                <c:if test="${item.id != requestScope.owner.id}">
-                                                    <form method="post">
-                                                        <tr class="requestsTr">
-                                                            <input type="hidden" class="clubId" name="clubId" value="${requestScope.club.id}">
-                                                            <input type="hidden" class="userId" name="userId" value="${item.id}">
-                                                            <td><strong><c:out value="${item.userFirstName}"/></strong></td>
-                                                            <td><strong><c:out value="${item.userLastName}"/></strong></td>
-                                                            <td><c:out value="${item.userLastName}"/></td>
-                                                            <td><c:out value="${item.graduateYear}"/></td>
-                                                            <td><input type='submit' class="addUser" name="addSubmitBtn"  value="Add"></td>
-                                                            <td><input type='submit' class="removeUser" name="removeSubmitBtn" value="Remove"></td>
-                                                        </tr>
-                                                    </form>
-                                                </c:if>
-                                            </c:forEach>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </c:if>
+<%--                                <c:if test="${sessionScope.signedUser.id == 2}">--%>
+<%--                                    <div id="requestToJoin" class="tab-pane fade">--%>
+<%--                                        <h3>Request(s)</h3>--%>
+<%--                                        <table class="table">--%>
+<%--                                            <thead>--%>
+<%--                                            <tr>--%>
+<%--                                                <td><strong>First Name</strong></td>--%>
+<%--                                                <td><strong>Last Name</strong></td>--%>
+<%--                                                <td>Email</td>--%>
+<%--                                                <td>Graduate Year</td>--%>
+<%--                                                <td>———</td>--%>
+<%--                                                <td>———</td>--%>
+<%--                                            </tr>--%>
+<%--                                            </thead>--%>
+<%--                                            <tbody class="requestsTable">--%>
+<%--                                            <c:forEach var="item" items="${requestScope.userJoinRequests}">--%>
+<%--                                                <c:if test="${item.id != requestScope.owner.id}">--%>
+<%--                                                    <form method="post">--%>
+<%--                                                        <tr class="requestsTr">--%>
+<%--                                                            <input type="hidden" class="authorId" name="authorId" value="${requestScope.author.id}">--%>
+<%--                                                            <input type="hidden" class="userId" name="userId" value="${item.id}">--%>
+<%--                                                            <td><strong><c:out value="${item.userFirstName}"/></strong></td>--%>
+<%--                                                            <td><strong><c:out value="${item.userLastName}"/></strong></td>--%>
+<%--                                                            <td><c:out value="${item.userLastName}"/></td>--%>
+<%--                                                            <td><c:out value="${item.graduateYear}"/></td>--%>
+<%--                                                            <td><input type='submit' class="addUser" name="addSubmitBtn"  value="Add"></td>--%>
+<%--                                                            <td><input type='submit' class="removeUser" name="removeSubmitBtn" value="Remove"></td>--%>
+<%--                                                        </tr>--%>
+<%--                                                    </form>--%>
+<%--                                                </c:if>--%>
+<%--                                            </c:forEach>--%>
+<%--                                            </tbody>--%>
+<%--                                        </table>--%>
+<%--                                    </div>--%>
+<%--                                </c:if>--%>
                             </div>
                         </div><!-- end shop-extra -->
-                        <c:if test="${sessionScope.signedUser.id == requestScope.owner.id}">
-                            <div class="deleteClub">
+                        <c:if test="${sessionScope.signedUser.id == 2}">
+                            <div class="deleteAuthor">
                                 <form method="post">
-                                    <input type="hidden" class="clubId" name="clubId" value="${requestScope.club.id}">
-                                    <input type="submit" class="clubDelete" value="Delete Club">
+                                    <input type="hidden" class="authorId" name="authorId" value="${requestScope.author.id}">
+                                    <input type="submit" class="authorDelete" value="Удалить Автора">
                                 </form>
                             </div>
                         </c:if>
@@ -347,130 +299,125 @@
 </html>
 <script>
     //Script to delete news
-    $(document).on('click', '.clubDelete', function(event) {
+    $(document).on('click', '.authorDelete', function(event) {
         event.preventDefault();
         let button = $(this);
-        let clubId;
+        let authorId;
         $(this).siblings().each(function(){
-            if($(this).hasClass("clubId")){
-                clubId = $(this).val();
+            if($(this).hasClass("authorId")){
+                authorId = $(this).val();
             }
         });
         $.ajax({
-            url: "api/club/remove/" + clubId,
+            url: "api/author/remove/" + authorId,
             type: "POST",
-            success: function() {
-                window.location.href = "club?action=getAll";
+            success: function(message) {
+                alert(message);
+                window.location.href = "author?action=getAll";
             }
         });
     });
     //Script to delete news
 
-    //Script to update club
-    $(document).on('click', '.clubUpdate', function(event) {
+    //Script to update author
+    $(document).on('click', '.authorUpdate', function(event) {
         event.preventDefault();
         let button = $(this);
         let card = button.closest('.tab-pane');
-        let clubId;
-        let ownerId;
-        let clubName = card.find('.updateName').val();
-        let clubImgUrl = card.find('.updateImgUrl').val();
-        let clubDescription = card.find('.updateDescription').val();
+        let authorId;
+        let authorName = card.find('.updateName').val();
+        let authorImgUrl = card.find('.updateImgUrl').val();
+        let authorBiography = card.find('.updateBiography').val();
         $(this).siblings().each(function() {
-            if ($(this).hasClass("clubId")) {
-                clubId = $(this).val();
-            }
-            if ($(this).hasClass("ownerId")) {
-                ownerId = $(this).val();
+            if ($(this).hasClass("authorId")) {
+                authorId = $(this).val();
             }
         });
         let toSend = {
-            id: clubId,
-            clubName: clubName,
-            clubDescription: clubDescription,
-            clubImgUrl: clubImgUrl,
-            clubOwnerId: ownerId,
+            id: authorId,
+            authorName: authorName,
+            authorBiography: authorBiography,
+            authorImgUrl: authorImgUrl,
         }
         let jsonData = JSON.stringify(toSend);
         $.ajax({
-            url: "api/club/update",
+            url: "api/author/update",
             type: "POST",
             contentType: "application/json; charset=utf-8",
             data: jsonData,
             success: function(message) {
                 alert(message);
-                if (message === "Club was updated successfully!") {
-                    $('.clubName').text(clubName);
-                    $('.clubImg').attr('src', clubImgUrl);
-                    card.find('.updateName').val(clubName);
-                    card.find('.updateImgUrl').val(clubImgUrl);
-                    card.find('.updateDescription').val(clubDescription);
+                if (message === "Author was updated successfully!") {
+                    $('.authorName').text(authorName);
+                    $('.authorImg').attr('src', authorImgUrl);
+                    card.find('.updateName').val(authorName);
+                    card.find('.updateImgUrl').val(authorImgUrl);
+                    card.find('.updateBiography').val(authorBiography);
                 }
             }
         })
     });
-    //Script to update club
+    //Script to update author
 
-    //Script to update club owner
+    //Script to update author owner
     $(document).on('click', '.updateOwner', function(event) {
         event.preventDefault();
         let button = $(this);
         let card = button.closest('.shop-meta');
-        let clubId;
-        let clubOwnerEmail = card.find('.updateOwnerEmail').val();
+        let authorId;
+        let authorOwnerEmail = card.find('.updateOwnerEmail').val();
         $(this).siblings().each(function() {
-            if ($(this).hasClass("clubId")) {
-                clubId = $(this).val();
+            if ($(this).hasClass("authorId")) {
+                authorId = $(this).val();
             }
         });
         $.ajax({
-            url: "api/club/update/owner/"+clubId+"/"+clubOwnerEmail,
+            url: "api/author/update/owner/"+authorId+"/"+authorOwnerEmail,
             type: "POST",
             success: function(message) {
                 alert(message);
-                window.location.href = "club?action=getClub&clubId="+clubId;
+                window.location.href = "author?action=getAuthor&authorId="+authorId;
             }
         });
     });
-    //Script to update club
+    //Script to update author
 
-    //Script to join to Club
+    //Script to join to Author
     $(document).on('click', '.joinBtn', function (event){
         event.preventDefault();
         let button = $(this);
-        let clubId;
+        let authorId;
         let userId;
         $(this).siblings().each(function(){
-            if($(this).hasClass("clubId")){
-                clubId = $(this).val();
+            if($(this).hasClass("authorId")){
+                authorId = $(this).val();
             }
             if($(this).hasClass("userId")){
                 userId = $(this).val();
             }
         });
         $.ajax({
-            url: "api/club/join/" + userId + "/" + clubId,
+            url: "api/author/join/" + userId + "/" + authorId,
             type: "POST",
             success: function (message) {
                 alert(message);
             }
         })
     });
-    //Script to join to Club
-
+    //Script to join to Author
     $(document).on('click', '.addUser', function (event){
         event.preventDefault();
         let button = $(this);
         let row = button.closest(".requestsTr");
-        let clubId = row.find(".clubId").val();
+        let authorId = row.find(".authorId").val();
         let userId = row.find(".userId").val();
         $.ajax({
-            url: "api/club/member/add/"+clubId+"/"+userId,
+            url: "api/author/member/add/"+authorId+"/"+userId,
             type: "POST",
             contentType: "application/json; charset=utf-8",
             success: function(message) {
                 alert(message);
-                window.location.href = "club?action=getClub&clubId="+clubId;
+                window.location.href = "author?action=getAuthor&authorId="+authorId;
 
             }
         })
@@ -480,15 +427,15 @@
         event.preventDefault();
         let button = $(this);
         let row = button.closest(".requestsTr");
-        let clubId = row.find(".clubId").val();
+        let authorId = row.find(".authorId").val();
         let userId = row.find(".userId").val();
         $.ajax({
-            url: "api/club/joinRequest/remove/"+clubId+"/"+userId,
+            url: "api/author/joinRequest/remove/"+authorId+"/"+userId,
             type: "POST",
             contentType: "application/json; charset=utf-8",
             success: function(message) {
                 alert(message);
-                window.location.href = "club?action=getClub&clubId="+clubId;
+                window.location.href = "author?action=getAuthor&authorId="+authorId;
             }
         })
     });
@@ -497,15 +444,15 @@
         event.preventDefault();
         let button = $(this);
         let row = button.closest(".memberRow");
-        let clubId = row.find(".clubId").val();
+        let authorId = row.find(".authorId").val();
         let memberId = row.find(".memberId").val();
         $.ajax({
-            url: "api/club/member/remove/"+clubId+"/"+memberId,
+            url: "api/author/member/remove/"+authorId+"/"+memberId,
             type: "POST",
             contentType: "application/json; charset=utf-8",
             success: function(message) {
                 alert(message);
-                window.location.href = "club?action=getClub&clubId="+clubId;
+                window.location.href = "author?action=getAuthor&authorId="+authorId;
             }
         })
     });
