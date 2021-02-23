@@ -1,49 +1,57 @@
 CREATE TABLE "authors" (
-    "author_id" bigserial not null,
-    "author_full_name" text,
-    "author_biography" text,
-    "author_img_url" text,
-    "author_birth_date" date,
-    "author_death_date" date,
-    CONSTRAINT clubs_pkey PRIMARY KEY (author_id)
+                           "author_id" bigserial not null,
+                           "author_full_name" text,
+                           "author_biography" text,
+                           "author_img_url" text,
+                           "author_birth_date" date,
+                           "author_death_date" date,
+                           CONSTRAINT authors_pkey PRIMARY KEY (author_id)
 );
 
 CREATE TABLE "books" (
-    "book_id" bigserial not null,
-    "book_title" text,
-    "book_description" text,
-    "book_img_url" text,
-    "author_id" bigint,
-    CONSTRAINT clubs_pkey PRIMARY KEY (book_id)
+                         "book_id" bigserial not null,
+                         "book_title" text,
+                         "book_description" text,
+                         "book_img_url" text,
+                         "author_id" bigint,
+                         CONSTRAINT books_pkey PRIMARY KEY (book_id)
 );
 
 CREATE TABLE "articles" (
-    "article_id" bigserial,
-    "article_title" text,
-    "article_description" text,
-    "article_img_url" text,
-    CONSTRAINT news_pkey PRIMARY KEY (article_id)
+                            "article_id" bigserial,
+                            "article_title" text,
+                            "article_description" text,
+                            "article_img_url" text,
+                            CONSTRAINT articles_pkey PRIMARY KEY (article_id)
 );
 
 CREATE TABLE "users" (
-     "user_id" bigserial,
-     "user_first_name" varchar(255),
-     "user_last_name" varchar(255),
-     "user_email" varchar(255),
-     "user_password" varchar(255),
-     "user_role" smallint,
-     CONSTRAINT users_pkey PRIMARY KEY (user_id)
+                         "user_id" bigserial,
+                         "user_first_name" varchar(255),
+                         "user_last_name" varchar(255),
+                         "user_email" varchar(255),
+                         "user_password" varchar(255),
+                         "user_role" smallint,
+                         CONSTRAINT users_pkey PRIMARY KEY (user_id)
 );
 
-select author_id, author_full_name, author_biography, author_img_url, author_birth_date, author_death_date FROM authors
-WHERE author_id = ?;
 
-INSERT INTO authors(author_id, author_full_name, author_biography, author_img_url, author_birth_date, author_death_date)
+INSERT INTO users(user_id, user_first_name, user_last_name, user_email, user_password, user_role) VALUES
+(DEFAULT, 'Admin', 'Adminuly', 'admin@astanait.edu.kz', '123', 2),
+(DEFAULT, 'Nurym', 'Siyrbayev', 'n.siyrbayev@astanait.edu.kz', '123', 1),
+(DEFAULT, 'Miras', 'Satybaldy', 'm.satybaldy@astanait.edu.kz', '123', 1);
 
-UPDATE authors SET author_full_name = ?, author_biography = ?, author_img_url = ?, author_birth_date = ?, author_death_date = ?
-WHERE author_id = ?;
+insert into authors(author_full_name, author_biography, author_img_url, author_birth_date, author_death_date)
+VALUES('Author-2', 'Bio', 'https://bigenc.ru/media/2016/10/27/1235214219/19348.jpg', '12-12-2012', NULL);
 
-DELETE from authors where author_id
+select * from authors;
+
+delete from authors where author_id = 7;
+
+INSERT INTO articles(article_title, article_description, article_img_url) VALUES
+('Заголовок', 'Что то что то','https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRW7cKEgr2lHgQ5k8iyHMQ0Rryf3yrWzLyPow&usqp=CAU');
+
+select * from  articles;
 
 
 

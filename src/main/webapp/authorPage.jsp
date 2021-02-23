@@ -10,7 +10,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!doctype html>
 <!--[if IE 9]> <html class="no-js ie9 fixed-layout" lang="en"> <![endif]-->
-<!--[if gt IE 9]><!--> <html class="no-js " lang="en"> <!--<![endif]-->
+<!--[if gt IE 9]><!-->
+<html class="no-js " lang="en"> <!--<![endif]-->
 <html lang="ru">
 <head>
 
@@ -28,7 +29,7 @@
     <meta name="author" content="">
 
     <!-- Site Icons -->
-    <link rel="shortcut icon" href="images/our-logo.png" type="image/x-icon" />
+    <link rel="shortcut icon" href="images/our-logo.png" type="image/x-icon"/>
     <link rel="apple-touch-icon" href="images/our-logo.png">
 
     <!-- Google Fonts -->
@@ -77,7 +78,7 @@
     </div>
     <!-- END # MODAL LOGIN -->
 
-    <%@include file="header.jsp"%>
+    <%@include file="header.jsp" %>
 
     <section class="section lb p120">
         <div class="container">
@@ -104,21 +105,22 @@
                         <form method="post" class="authorInsert">
                             <input type="hidden" name="action" value="addNewAuthor">
                             Полное имя автора *<input class="newFullName" name="authorFullName" type="text">
-                                <br>
+                            <br>
                             Биография астора *<br>
-                                <label>
-                                    <textarea class="newBiography" name="authorBiography" cols="45" rows="5"></textarea>
-                                </label>
+                            <label>
+                                <textarea class="newBiography" name="authorBiography" cols="45" rows="5"></textarea>
+                            </label>
                             <br>
                             Дата рождения автора *
-                            <input class="newBirthDate" name="authorBirthDate" value="01-01-0001" type="date">
+                            <input class="newBirthDate" name="authorBirthDate" placeholder="01-01-0001" type="text">
                             <br>
                             (Дата смерти)
-                            <input class="newDeathDate" name="authorDeathDate" value="01-01-0001" type="date">
+                            <input class="newDeathDate" name="authorDeathDate" placeholder="01-01-0001" value="0"
+                                   type="text">
                             <br>
                             Ссылка на картину автора *<input class="newImgUrl" name="authorImgURL" type="text">
-                                <br>
-                            <input class="addAuthor" type="submit" value="Add">
+                            <br>
+                            <input class="addAuthor" type="submit" value="Добавить">
                         </form>
                     </div>
                 </c:if>
@@ -126,46 +128,53 @@
                 <br><br><br><br>
 
                 <div class="row blog-grid shop-grid">
-<%--        Clubs loop here         --%>
+                    <%--        Clubs loop here         --%>
                     <c:forEach var="author" items="${requestScope.authors}">
                         <div class="col-md-3">
                             <div class="course-box shop-wrapper">
                                 <div class="image-wrap entry">
-<%--                                    <img src="${club.clubImgUrl}" alt="" class="img-responsive" width="200px" height="200px">--%>
-                                    <img src="${author.authorImgUrl}" alt="" class="img-responsive" width="200px" height="200px">
+                                        <%--                                    <img src="${club.clubImgUrl}" alt="" class="img-responsive" width="200px" height="200px">--%>
+                                    <img src="${author.authorImgUrl}" alt="" class="img-responsive" width="200px"
+                                         height="200px">
                                 </div>
                                 <!-- end image-wrap -->
-                                    <div class="course-details shop-box text-center">
-                                            <h4>
-                                                <form method="get" action="author">
-                                                    <input type="hidden" name="action" value="getAuthor">
-<%--                                                    <input type="hidden" class="clubId" name="clubId" value="${club.id}">--%>
-                                                    <input type="hidden" class="authorId" name="authorId" value="Автор">
-<%--                                                    <a class="nav-link" href="#" onclick="this.parentNode.submit()"><c:out value="${club.clubName}"/></a>--%>
-                                                    <a class="nav-link" href="#" onclick="this.parentNode.submit()"><c:out value="${author.authorName}"/></a>
-                                                </form>
-                                                <small><c:out value="${author.birthDate}"/></small>
-                                                <c:if test="${author.deathDate != '0001-01-01'}">
-                                                <small><c:out value="${author.deathDate}"/></small>
-                                                </c:if>
-                                            </h4>
-                                    </div>
+                                <div class="course-details shop-box text-center">
+                                    <h4>
+                                        <form method="get" action="author">
+                                            <input type="hidden" name="action" value="getAuthor">
+                                                <%--                                                    <input type="hidden" class="clubId" name="clubId" value="${club.id}">--%>
+                                            <input type="hidden" class="authorId" name="authorId" value="${author.authorId}">
+                                                <%--                                                    <a class="nav-link" href="#" onclick="this.parentNode.submit()"><c:out value="${club.clubName}"/></a>--%>
+                                            <a class="nav-link" href="#" onclick="this.parentNode.submit()"><c:out
+                                                    value="${author.authorName}"/></a>
+                                        </form>
+                                        <small><c:out value="${author.birthDate}"/></small>
+                                        <c:if test="${author.deathDate == null}">
+                                            <small>~~~~~~~~</small>
+                                        </c:if>
+                                        <c:if test="${author.deathDate != null}">
+                                            <small><c:out value="${author.deathDate}"/></small>
+                                        </c:if>
+                                    </h4>
+                                </div>
                                 <!-- end details -->
-<%--                                <div class="course-footer clearfix">--%>
-<%--                                    <div class="pull-left">--%>
-<%--                                        <ul class="list-inline">--%>
-<%--                                            <form method="post">--%>
-<%--                                                <input type="hidden" class="authorId"  value="${author.id}">--%>
-<%--                                                <input type="hidden" class="userId"  value="${sessionScope.signedUser.id}">--%>
-<%--                                                <input class="joinBtn" type="submit" value="JOIN">--%>
-<%--                                            </form>--%>
-<%--                                        </ul>--%>
-<%--                                    </div><!-- end left -->--%>
-<%--                                </div><!-- end footer -->--%>
+                                <c:if test="${sessionScope.signedUser.userRole == 2}">
+                                    <div class="course-footer clearfix">
+                                        <div class="pull-left">
+                                            <ul class="list-inline">
+                                                <form method="post">
+                                                    <input type="hidden" class="authorId" value="${author.id}">
+                                                    <input class="deleteAuthor" type="submit" value="Удалить">
+                                                </form>
+                                            </ul>
+                                        </div><!-- end left -->
+                                    </div>
+                                </c:if><!-- end footer -->
                             </div><!-- end box -->
-                        </div><!-- end col -->
+                        </div>
+                        <!-- end col -->
                     </c:forEach>
-<%--                    Blogs loop here         --%>
+                    <%--                    Blogs loop here         --%>
 
                 </div><!-- end row -->
             </div>
@@ -173,7 +182,7 @@
     </section>
 
     <!-- start footer -->
-    <%@include file="footer.jsp"%>
+    <%@include file="footer.jsp" %>
     <!-- end footer -->
 
     <div class="copyrights">
@@ -208,9 +217,9 @@
 </html>
 
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
         //Script to add new news
-        $('.addAuthor').click(function(event) {
+        $('.addAuthor').click(function (event) {
             event.preventDefault();
             let button = $(this);
             let form = button.closest('.authorInsert');
@@ -218,18 +227,17 @@
             let authorBiography = form.find('.newBiography').val();
             let authorImgUrl = form.find('.newImgUrl').val();
             let authorBirthDate = form.find('.newBirthDate').val();
-            let authorDeathDate = form.find('.DeathDate').val();
-            console.log(authorFullName);
-            console.log(authorBiography);
-            console.log(authorImgUrl);
-            console.log(authorBirthDate);
-            console.log(authorDeathDate);
+            let authorDeathDate = form.find('.newDeathDate').val();
+            // let day = authorBirthDate.getDate();
+            // let month = authorBirthDate.getMonth() + 1;
+            // let year = authorBirthDate.getFullYear();
+            // alert([day, month, year].join('-'));
             let toSend = {
-                authorFullName: authorFullName,
+                authorName: authorFullName,
                 authorBiography: authorBiography,
                 authorImgUrl: authorImgUrl,
-                authorBirthDate: authorBirthDate,
-                authorDeathDate: authorDeathDate
+                birthDate: authorBirthDate,
+                deathDate: authorDeathDate
             };
             let sendJson = JSON.stringify(toSend);
             $.ajax({
@@ -237,14 +245,15 @@
                 type: "POST",
                 contentType: "application/json; charset=utf-8",
                 data: sendJson,
-                success: function(message) {
+                success: function (message) {
                     alert(message);
-                    if(message === "Автор был успешно добавлен!") {
+                    if (message === "Автор был успешно добавлен!") {
                         $.ajax({
                             url: "api/author/all",
                             type: "GET",
                             success: function (responseJson) {
                                 let lastAuthor = responseJson[responseJson.length - 1];
+                                if (!authorDeathDate){authorDeathDate = "~~~~~~~~"}
                                 $('.blog-grid').append(
                                     `<div class="col-md-3">
                                         <div class="course-box shop-wrapper">
@@ -258,20 +267,20 @@
                                                                 <input type="hidden" class="clubId" name="clubId" value="` + lastAuthor.id + `">
                                                                 <a class="nav-link" href="#" onclick="this.parentNode.submit()">` + authorFullName + `</a>
                                                             </form>
-                                                            <small>club</small>
+                                                            <small>` + authorBirthDate + `</small>
+                                                            <small>` + authorDeathDate + `</small>
                                                         </h4>
                                                 </div>
-                                            <%--<div class="course-footer clearfix">--%>
-                                            <%--    <div class="pull-left">--%>
-                                            <%--        <ul class="list-inline">--%>
-                                            <%--            <form method="post">--%>
-                                            <%--                <input type="hidden" class="clubId" name="clubId" value="` + lastAuthor.id + `">--%>
-                                            <%--                <input type="hidden" class="userId"  value="${sessionScope.signedUser.id}">--%>
-                                            <%--                <input class="joinBtn" type="submit" value="JOIN">--%>
-                                            <%--            </form>--%>
-                                            <%--        </ul>--%>
-                                            <%--    </div>--%>
-                                            <%--</div>--%>
+                                            <div class="course-footer clearfix">
+                                                <div class="pull-left">
+                                                    <ul class="list-inline">
+                                                        <form method="post">
+                                                            <input type="hidden" class="authorId" name="authorId" value="` + lastAuthor.id + `">
+                                                            <input class="deleteAuthor" type="submit" value="Delete">
+                                                        </form>
+                                                    </ul>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>`
                                 );
@@ -306,5 +315,25 @@
         //     })
         // });
         //Script to join to Club
+    });
+
+    // Delete Author
+    $(document).on('click', '.deleteAuthor', function(event) {
+        event.preventDefault();
+        let button = $(this);
+        let authorId;
+        $(this).siblings().each(function(){
+            if($(this).hasClass("authorId")){
+                authorId = $(this).val();
+            }
+        });
+        $.ajax({
+            url: "api/author/remove/" + authorId,
+            type: "POST",
+            success: function(message) {
+                alert(message);
+                window.location.href = "author?action=getAll";
+            }
+        });
     });
 </script>
